@@ -1,3 +1,50 @@
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"> <div id="chart_div"></div> </script>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Sheets Data Visualization</title>
+    <!-- Include Google Charts library -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+    <!-- Create a container for the chart -->
+    <div id="chart_div"></div>
+
+    <script type="text/javascript">
+        // Load the Google Charts library
+        google.charts.load('current', { 'packages': ['corechart'] });
+
+        // Set a callback function to run when the library is loaded
+        google.charts.setOnLoadCallback(drawChart);
+
+        // Function to draw the chart
+        function drawChart() {
+            // Replace 'YOUR_GOOGLE_SHEETS_LINK' with your Google Sheets shareable link
+            var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1amHMHdS5G9ZXf5VdmjELrjFrDHa1hWhu1qu5giAwfIo/edit?usp=sharing');
+
+            // Send the query and handle the response
+            query.send(handleQueryResponse);
+        }
+
+        // Function to handle the query response
+        function handleQueryResponse(response) {
+            if (response.isError()) {
+                console.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+                return;
+            }
+
+            var data = response.getDataTable();
+
+            var options = {
+                title: 'Installs Amazon',
+                // Add more chart options here
+            };
+
+            // Create a chart and attach it to the 'chart_div' element
+            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+</body>
+</html>
 
 
